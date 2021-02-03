@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div>
+      <nav class="navbar navbar-light bg-light">
+        <form class="form-inline" action="/search" method="POST">
+          <input class="form-control mr-sm-2" type="text" name="name" placeholder="Name" aria-label="Search">
+          <input class="form-control mr-sm-2" type="email" name="email" placeholder="Email" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" name="submit" type="submit">Search</button>
+        </form>
+      </nav>
+    </div>
+    <!-- <p>Welcome to <%= title %></p> -->
+    <table class="table table-dark table-striped">
+      <tr>
+        <thead>
+          <th>Employee Name</th>
+          <th>Email</th>
+          <th>EMP Type</th>
+          <th>Rate</th>
+          <th>Total Hour</th>
+          <th>Total</th>
+          <th>Action</th>
+        </thead>
+      </tr>
+      <% if (records.length >0){%>
+      <% records.forEach (function(row){%>
+      <tr>
+      <td><%= row.name %></td>
+       <td><%= row.eamil %></td>
+       <td><%= row.etype %></td>
+       <td><%= row.hourlyrate %></td>
+       <td><%= row.totalhour %></td>
+       <td><%= row.total %></td> 
+       <td><a class="btn btn-primary" href="/edit/<%= row._id %>"><i class="fa fa-edit"></i></i></a>
+        <a class="btn btn-warning" href="/delete/<%= row._id %>"><i class="fa fa-trash"></i></i></a>
+      </td>  
+      </tr>
+   <% })}else{%>
+     <tr>
+       <td colspan="6">NO Record Found</td>
+     </tr> 
+   <% }%>
+    </table>
+
+    <div class="row">
+      <% if(success!=''){ %>
+      <div class="alert alert-success">
+        <strong>Success!</strong> <%= success %>
+      </div>
+      <%}%>
+      <div class="container-fluid"> 
+      <form action="/" method="POST">
+        <div class="form-group">
+          <label for="name">Nme:</label>
+          <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="Email">Email:</label>
+          <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group"></div>
+          <label for="etype">EType:</label>
+          <select class="form-control" name="etype">
+            <option value="hourley">Hourley</option>
+            <option value="Fixed">Fixed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="rate">Rate:</label>
+          <input type="text" class="form-control" id="rate" name="rate">
+        </div>
+        <div class="form-group">
+          <label for="totalhour">Total Hour:</label>
+          <input type="text" class="form-control" id="thour" name="thour">
+        </div>
+        <button type="submit" name="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+  </div>
+  </body>
+</html>
